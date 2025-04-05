@@ -1,19 +1,12 @@
-import express, { Request, Response } from 'express';
-import dotenv from 'dotenv';
-import { connectDb } from './config/db';
+import app from './app';
+import { connectDb } from './config/database.config';
+import { envconfig } from './config/env.config';
 
-dotenv.config();
-
-const app = express();
-const port = process.env.PORT;
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Merhaba');
-});
+const port = envconfig.PORT;
 
 app.listen(port, async () => {
   try {
-    await connectDb();
+    await connectDb(envconfig.MONGODB_URI);
     console.log(`Server is running on port ${port}`);
   } catch (error: unknown) {
     console.error(`App Listen Error: ${error}`);

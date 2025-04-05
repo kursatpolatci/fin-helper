@@ -1,0 +1,31 @@
+@base_url = http://localhost:5000/api/auth
+
+### SIGNUP
+
+POST {{base_url}}/signup
+Content-Type: application/json
+
+{
+    "username": "kursatpolatci",
+    "fullName": "Kürşat Polatci",
+    "email": "polatcikursat58@gmail.com",
+    "password": "123456"
+}
+
+### LOGIN
+
+POST {{base_url}}/login
+Content-Type: application/json
+
+{
+    "email": "polatcikursat58@gmail.com",
+    "password": "123456"
+}
+
+### LOGOUT
+
+GET {{base_url}}/logout
+
+### CHECK AUTH
+
+GET {{base_url}}/check-auth
