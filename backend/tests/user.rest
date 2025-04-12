@@ -1,0 +1,17 @@
+@base_url = http://localhost:5000/api/user
+
+### UPDATE PROFILE
+
+PUT {{base_url}}/update
+Content-Type: multipart/form-data; boundary=boundary123
+
+--boundary123
+Content-Disposition: form-data; name="fullName"
+
+kursatpolatci
+--boundary123
+Content-Disposition: form-data; name="profileImage"; filename="image.png"
+Content-Type: image/jpeg
+
+< C:\Users\polat\OneDrive\Desktop\us.jpeg
+--boundary123--

@@ -1,0 +1,16 @@
+@base_url = http://localhost:5000/api/expense
+
+### CREATE EXPENSE
+
+POST {{base_url}}/create
+Content-Type: application/json
+
+{
+    "title": "Ecem Hediye",
+    "amount": 1800,
+    "date": "2025-01-01"
+}
+
+### GET ALL EXPENSES
+
+GET {{base_url}}/all

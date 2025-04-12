@@ -1,14 +1,15 @@
 import { CustomError } from '../errors/custom.error';
 import { comparePassword, hashPassword } from '../helpers/hash.helper';
 import User, { IUser } from '../models/user.model';
-import { ILoginInput, ISignupInput } from '../types/auth.interface';
 import { generateToken, setTokenCookie } from '../helpers/token.helper';
 import { Response } from 'express';
+import { ILoginInput, ISignupInput } from '../types/input.interface';
 
 export const signupService = async (input: ISignupInput, res: Response): Promise<IUser> => {
-  const existingUser = await User.findOne({ $or: [{ email: input.email }, { username: input.username }] });
+  const { username, fullName, email, profileImage, password } = input;
+  const existingUser = await User.findOne({ $or: [{ email }, { username }] });
   if (existingUser) throw new CustomError('Email or username is already using', 404);
-  const hashedPassword = await hashPassword(input.password);
+  const hashedPassword = await hashPassword(password);
   const newUser = new User({ ...input, password: hashedPassword });
   await newUser.save();
   const token = generateToken(newUser.id);

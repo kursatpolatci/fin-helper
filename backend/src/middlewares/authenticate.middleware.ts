@@ -1,12 +1,9 @@
-import { NextFunction, Response, Request } from 'express';
+import { NextFunction, Response } from 'express';
 import { CustomError } from '../errors/custom.error';
 import jwt from 'jsonwebtoken';
 import { envconfig } from '../config/env.config';
 import { handleErrorResponse } from '../utils/response.util';
-
-export interface AuthenticatedRequest extends Request {
-  userId?: string;
-}
+import { AuthenticatedRequest } from '../types/request.interface';
 
 export const authenticate = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
   try {

@@ -3,14 +3,25 @@
 ### SIGNUP
 
 POST {{base_url}}/signup
-Content-Type: application/json
+Content-Type: multipart/form-data; boundary=boundary123
 
-{
-    "username": "kursatpolatci",
-    "fullName": "Kürşat Polatci",
-    "email": "polatcikursat58@gmail.com",
-    "password": "123456"
-}
+--boundary123
+Content-Disposition: form-data; name="fullName"
+
+Kürşat Polatci
+--boundary123
+Content-Disposition: form-data; name="email"
+
+polatcikursat58@gmail.commm
+--boundary123
+Content-Disposition: form-data; name="username"
+
+kursatpolatciii
+--boundary123
+Content-Disposition: form-data; name="password"
+
+123456
+--boundary123--
 
 ### LOGIN
 

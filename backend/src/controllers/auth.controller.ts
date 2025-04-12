@@ -1,18 +1,21 @@
 import { Request, Response } from 'express';
-import { validateLoginInput, validateSignupInput } from '../helpers/validation.helper';
 import { checkAuthService, loginService, logoutService, signupService } from '../services/auth.service';
 import { handleErrorResponse, handleResponse } from '../utils/response.util';
-import { ILoginInput, ISignupInput } from '../types/auth.interface';
-import { AuthenticatedRequest } from '../middlewares/authenticate.middleware';
+import { validateInput } from '../helpers/validation.helper';
+import { AuthenticatedRequest } from '../types/request.interface';
+import { ILoginInput, ISignupInput } from '../types/input.interface';
+import { deleteImage } from '../utils/image.util';
 
 export const signup = async (req: Request<{}, {}, ISignupInput>, res: Response): Promise<void> => {
   const { fullName, email, username, password } = req.body;
-  const userData = { fullName, email, username, password };
+  const { file } = req;
+  const userData: ISignupInput = { fullName, email, username, password, profileImage: file?.path };
   try {
-    validateSignupInput(userData);
+    validateInput<ISignupInput>(userData);
     const user = await signupService(userData, res);
     handleResponse(res, 201, 'Signed Up successfully', user, 'user');
   } catch (error: unknown) {
+    deleteImage(file?.path);
     handleErrorResponse(res, error);
   }
 };
@@ -21,7 +24,7 @@ export const login = async (req: Request<{}, {}, ILoginInput>, res: Response): P
   const { email, password } = req.body;
   const userData = { email, password };
   try {
-    validateLoginInput(userData);
+    validateInput<ILoginInput>(userData);
     const user = await loginService(userData, res);
     handleResponse(res, 200, 'Login successfully', user, 'user');
   } catch (error: unknown) {
@@ -29,7 +32,7 @@ export const login = async (req: Request<{}, {}, ILoginInput>, res: Response): P
   }
 };
 
-export const logout = async (req: Request, res: Response): Promise<void> => {
+export const logout = async (req: Request<{}, {}, {}>, res: Response): Promise<void> => {
   try {
     logoutService(res);
     handleResponse(res, 200, 'Logout successfully');
