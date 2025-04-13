@@ -4,6 +4,7 @@
 
 POST {{base_url}}/signup
 Content-Type: multipart/form-data; boundary=boundary123
+Accept-Language: tr
 
 --boundary123
 Content-Disposition: form-data; name="fullName"
@@ -12,21 +13,22 @@ Kürşat Polatci
 --boundary123
 Content-Disposition: form-data; name="email"
 
-polatcikursat58@gmail.commm
+polatcikursat58@gmail.com
 --boundary123
 Content-Disposition: form-data; name="username"
 
-kursatpolatciii
+kursatpolatci
 --boundary123
 Content-Disposition: form-data; name="password"
 
-123456
+12345
 --boundary123--
 
 ### LOGIN
 
 POST {{base_url}}/login
 Content-Type: application/json
+Accept-Language: tr
 
 {
     "email": "polatcikursat58@gmail.com",
@@ -36,7 +38,9 @@ Content-Type: application/json
 ### LOGOUT
 
 GET {{base_url}}/logout
+Accept-Language: tr
 
 ### CHECK AUTH
 
 GET {{base_url}}/check-auth
+Accept-Language: en

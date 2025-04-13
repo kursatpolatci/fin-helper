@@ -1,0 +1,18 @@
+{
+  "auth": {
+    "signup": "Kayıt başarıyla tamamlandı. Hoş geldin {{name}}!",
+    "login": "Giriş başarılı. Tekrar hoş geldin {{name}}!",
+    "logout": "Başarıyla çıkış yapıldı.",
+    "checkAuth": "{{name}} başarıyla doğrulandı."
+  },
+  "expense": {
+    "createExpense": "Harcama başarıyla oluşturuldu."
+  },
+  "user": {
+    "updateProfile": "Profil başarıyla güncellendi"
+  },
+  "errors": {
+    "email-format": "E-posta formatı geçerli değil.",
+    "password-length": "Şifre en az 6 karakter olmalıdır."
+  }
+}

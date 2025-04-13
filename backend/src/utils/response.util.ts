@@ -4,12 +4,15 @@ import { CustomError } from '../errors/custom.error';
 export const handleResponse = (
   res: Response,
   statusCode: number,
-  message?: string,
+  messageKey?: string,
+  messageVars: Record<string, any> = {},
   dataValue: any = null,
   dataKey: string = 'data'
 ): void => {
-  if (dataValue) res.status(statusCode).json({ success: true, message, [dataKey]: dataValue });
-  else res.status(statusCode).json({ success: true, message });
+  const responseBody: Record<string, any> = { success: true };
+  if (messageKey) responseBody.message = res.__(messageKey, messageVars);
+  if (dataValue != null) responseBody[dataKey] = dataValue;
+  res.status(statusCode).json(responseBody);
 };
 
 export const handleErrorResponse = (res: Response, error: unknown): void => {

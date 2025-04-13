@@ -10,8 +10,8 @@ export const updateProfile = async (req: AuthenticatedRequest, res: Response): P
   const { file } = req;
   const userData = { fullName, username, email, newPassword, oldPassword, image: file ? file.path : '' };
   try {
-    const updatedUser = await updateProfileService(userData, userId!);
-    handleResponse(res, 200, 'Profile updated successfully', updatedUser, 'user');
+    const updatedUser = await updateProfileService(userData, userId!, res);
+    handleResponse(res, 200, 'user.updateProfile.success', undefined, updatedUser, 'user');
   } catch (error: unknown) {
     deleteImage(file?.path);
     handleErrorResponse(res, error);

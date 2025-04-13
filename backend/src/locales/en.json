@@ -1,0 +1,18 @@
+{
+  "auth": {
+    "signup": "Signup completed successfully. Welcome {{name}}!",
+    "login": "Login successful. Welcome again {{name}}!",
+    "logout": "Logged out successfully.",
+    "checkAuth": "{{name}} authenticated."
+  },
+  "expense": {
+    "createExpense": "Expense created successfully."
+  },
+  "user": {
+    "updateProfile": "Profile updated successfully"
+  },
+  "errors": {
+    "email-format": "Email format is not valid.",
+    "password-length": "Password length must be at least 6."
+  }
+}

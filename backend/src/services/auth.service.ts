@@ -4,11 +4,13 @@ import User, { IUser } from '../models/user.model';
 import { generateToken, setTokenCookie } from '../helpers/token.helper';
 import { Response } from 'express';
 import { ILoginInput, ISignupInput } from '../types/input.interface';
+import { passwordControl } from '../helpers/validation.helper';
 
 export const signupService = async (input: ISignupInput, res: Response): Promise<IUser> => {
   const { username, fullName, email, profileImage, password } = input;
   const existingUser = await User.findOne({ $or: [{ email }, { username }] });
   if (existingUser) throw new CustomError('Email or username is already using', 404);
+  passwordControl(password, res);
   const hashedPassword = await hashPassword(password);
   const newUser = new User({ ...input, password: hashedPassword });
   await newUser.save();

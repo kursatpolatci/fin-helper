@@ -13,7 +13,7 @@ export const signup = async (req: Request<{}, {}, ISignupInput>, res: Response):
   try {
     validateInput<ISignupInput>(userData);
     const user = await signupService(userData, res);
-    handleResponse(res, 201, 'Signed Up successfully', user, 'user');
+    handleResponse(res, 201, 'auth.signup', { name: user.fullName }, user, 'user');
   } catch (error: unknown) {
     deleteImage(file?.path);
     handleErrorResponse(res, error);
@@ -26,7 +26,7 @@ export const login = async (req: Request<{}, {}, ILoginInput>, res: Response): P
   try {
     validateInput<ILoginInput>(userData);
     const user = await loginService(userData, res);
-    handleResponse(res, 200, 'Login successfully', user, 'user');
+    handleResponse(res, 200, 'auth.login', { name: user.username }, user, 'user');
   } catch (error: unknown) {
     handleErrorResponse(res, error);
   }
@@ -35,7 +35,7 @@ export const login = async (req: Request<{}, {}, ILoginInput>, res: Response): P
 export const logout = async (req: Request<{}, {}, {}>, res: Response): Promise<void> => {
   try {
     logoutService(res);
-    handleResponse(res, 200, 'Logout successfully');
+    handleResponse(res, 200, 'auth.logout');
   } catch (error: unknown) {
     handleErrorResponse(res, error);
   }
@@ -45,7 +45,7 @@ export const checkAuth = async (req: AuthenticatedRequest, res: Response): Promi
   const { userId } = req;
   try {
     const user = await checkAuthService(userId!);
-    handleResponse(res, 200, undefined, user, 'user');
+    handleResponse(res, 200, 'auth.checkAuth', { name: user.fullName }, user, 'user');
   } catch (error: unknown) {
     handleErrorResponse(res, error);
   }
