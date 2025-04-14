@@ -13,6 +13,16 @@
   },
   "errors": {
     "email-format": "E-posta formatı geçerli değil.",
-    "password-length": "Şifre en az 6 karakter olmalıdır."
+    "password-length": "Şifre en az 6 karakter olmalıdır.",
+    "invalid-value": "Herhangi bir alan geçersiz veya boş olamaz.",
+    "existing-user": "Böyle bir kullancı zaten mevcut.",
+    "user-not-found": "Kullanıcı bulunamadı.",
+    "wrong-password": "Şifre doğru değil.",
+    "no-fields-provided": "Herhangi bir alan güncellenmedi.",
+    "token-not-provided": "Yetkisiz: Token sağlanamadı.",
+    "invalid-token": "Yetkisiz: Geçersiz token.",
+    "invalid-token-format": "Yetkisiz: Geçersiz token formatı.",
+    "invalid-signature": "Yetkisiz: Geçersiz imza",
+    "invalid-currency": "Geçersiz para birimi. Sadece USD, TRY veya EUR kabul edilir."
   }
 }

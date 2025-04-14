@@ -3,14 +3,48 @@
 ### CREATE EXPENSE
 
 POST {{base_url}}/create
-Content-Type: application/json
+Content-Type: multipart/form-data; boundary=boundary123
+Accept-Language: tr
 
-{
-    "title": "Ecem Hediye",
-    "amount": 1800,
-    "date": "2025-01-01"
-}
+--boundary123
+Content-Disposition: form-data; name="title"
+
+Çanta
+--boundary123
+Content-Disposition: form-data; name="amount"
+
+1899
+--boundary123
+Content-Disposition: form-data; name="currency"
+
+TRY
+--boundary123
+Content-Disposition: form-data; name="date"
+
+2025-04-11
+--boundary123
+Content-Disposition: form-data; name="expenseImage"; filename="expense.png"
+Content-Type: image/jpeg
+
+< C:\Users\polat\OneDrive\Desktop\sa.jpeg
+--boundary123--
 
 ### GET ALL EXPENSES
 
 GET {{base_url}}/all
+
+### UPDATE EXPENSE
+
+PUT {{base_url}}/update/67fc625969866d71693c1db3
+Content-Type: multipart/form-data; boundary=boundary123
+Accept-Language: tr
+
+--boundary123
+Content-Disposition: form-data; name="title"
+
+didosbag
+--boundary123
+Content-Disposition: form-data; name="currecy",
+
+EUR
+--boundary123--

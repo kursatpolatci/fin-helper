@@ -1,10 +1,10 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import i18n from './config/i18n.config';
 import { authRoutes } from './routes/auth.routes';
 import { userRoutes } from './routes/user.routes';
 import { expenseRoutes } from './routes/expense.routes';
-import i18n from './config/i18n.config';
 import { localizationMiddleware } from './middlewares/localization.middleware';
 
 const app = express();

@@ -11,7 +11,7 @@ export const signup = async (req: Request<{}, {}, ISignupInput>, res: Response):
   const { file } = req;
   const userData: ISignupInput = { fullName, email, username, password, profileImage: file?.path };
   try {
-    validateInput<ISignupInput>(userData);
+    validateInput<ISignupInput>(userData, res);
     const user = await signupService(userData, res);
     handleResponse(res, 201, 'auth.signup', { name: user.fullName }, user, 'user');
   } catch (error: unknown) {
@@ -24,7 +24,7 @@ export const login = async (req: Request<{}, {}, ILoginInput>, res: Response): P
   const { email, password } = req.body;
   const userData = { email, password };
   try {
-    validateInput<ILoginInput>(userData);
+    validateInput<ILoginInput>(userData, res);
     const user = await loginService(userData, res);
     handleResponse(res, 200, 'auth.login', { name: user.username }, user, 'user');
   } catch (error: unknown) {
@@ -44,7 +44,7 @@ export const logout = async (req: Request<{}, {}, {}>, res: Response): Promise<v
 export const checkAuth = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   const { userId } = req;
   try {
-    const user = await checkAuthService(userId!);
+    const user = await checkAuthService(userId!, res);
     handleResponse(res, 200, 'auth.checkAuth', { name: user.fullName }, user, 'user');
   } catch (error: unknown) {
     handleErrorResponse(res, error);

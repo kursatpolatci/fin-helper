@@ -17,11 +17,22 @@ export interface IUpdateProfileInput {
   fullName: string;
   oldPassword: string;
   newPassword: string;
-  image: string;
+  profileImage: string;
 }
 
 export interface ICreateExpenseInput {
   title: string;
   amount: number;
-  date: string;
+  date: Date;
+  currency: string;
+  userId?: string;
+  expenseImage?: string;
+}
+
+export interface IUpdateExpenseInput {
+  title: string;
+  amount: number;
+  date: Date;
+  currency: string;
+  expenseImage?: string;
 }

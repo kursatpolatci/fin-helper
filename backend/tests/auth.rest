@@ -21,7 +21,7 @@ kursatpolatci
 --boundary123
 Content-Disposition: form-data; name="password"
 
-12345
+123456
 --boundary123--
 
 ### LOGIN
@@ -43,4 +43,4 @@ Accept-Language: tr
 ### CHECK AUTH
 
 GET {{base_url}}/check-auth
-Accept-Language: en
+Accept-Language: tr

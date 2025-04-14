@@ -11,10 +11,10 @@ export const updateProfileService = async (
   res: Response
 ): Promise<IUser> => {
   const isAnyFieldEmpty = Object.values(input).every((value) => !value);
-  if (isAnyFieldEmpty) throw new Error('Cannot not updated.');
+  if (isAnyFieldEmpty) throw new Error(res.__('errors.no-fields-provided'));
   const relatedUser = await User.findById(userId);
-  if (!relatedUser) throw new Error('User not found');
-  const { username, email, oldPassword, newPassword, fullName, image } = input;
+  if (!relatedUser) throw new Error(res.__('errors.user-not-found'));
+  const { username, email, oldPassword, newPassword, fullName, profileImage } = input;
   if (username) {
     const isUsernameExist = await User.findOne({ username });
     if (!isUsernameExist) relatedUser.username = username;
@@ -33,9 +33,9 @@ export const updateProfileService = async (
     relatedUser.password = newPassword;
   }
   if (fullName) relatedUser.fullName = fullName;
-  if (image) {
+  if (profileImage) {
     if (relatedUser.profileImage !== 'default-avatar.jpg') deleteImage(relatedUser.profileImage);
-    relatedUser.profileImage = image;
+    relatedUser.profileImage = profileImage;
   }
   return await relatedUser.save();
 };

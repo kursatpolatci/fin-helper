@@ -1,9 +1,9 @@
 import { Response } from 'express';
 
-export const validateInput = <T extends object>(input: T): void => {
+export const validateInput = <T extends object>(input: T, res: Response): void => {
   for (const [key, value] of Object.entries(input)) {
     if (value === undefined) continue;
-    if (!value) throw new Error(`Invalid value: ${String(key)} cannot be empty or invalid`);
+    if (!value) throw new Error(res.__('errors.invalid-value', { field: key }));
   }
 };
 
@@ -14,4 +14,9 @@ export const emailControl = (email: string, res: Response): void => {
 
 export const passwordControl = (password: string, res: Response): void => {
   if (password.length < 6) throw new Error(res.__('errors.password-length'));
+};
+
+export const validCurrency = (currency: string, res: Response): void => {
+  const allowedCurrencies = ['TRY', 'EUR', 'USD'];
+  if (!allowedCurrencies.includes(currency)) throw new Error(res.__('errors.invalid-currency'));
 };

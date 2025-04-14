@@ -5,10 +5,9 @@ import { deleteImage } from '../utils/image.util';
 import { AuthenticatedRequest } from '../types/request.interface';
 
 export const updateProfile = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
-  const { userId } = req;
   const { fullName, username, email, newPassword, oldPassword } = req.body;
-  const { file } = req;
-  const userData = { fullName, username, email, newPassword, oldPassword, image: file ? file.path : '' };
+  const { file, userId } = req;
+  const userData = { fullName, username, email, newPassword, oldPassword, profileImage: file ? file.path : '' };
   try {
     const updatedUser = await updateProfileService(userData, userId!, res);
     handleResponse(res, 200, 'user.updateProfile.success', undefined, updatedUser, 'user');

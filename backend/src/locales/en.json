@@ -13,6 +13,17 @@
   },
   "errors": {
     "email-format": "Email format is not valid.",
-    "password-length": "Password length must be at least 6."
+    "password-length": "Password length must be at least 6.",
+    "invalid-value": "Any field cannot be empty or invalid",
+    "existing-user": "This user is already exist.",
+    "user-not-found": "User not found",
+    "wrong-password": "Password is not correct",
+    "no-fields-provided": "No fields were provided for update.",
+    "token-not-provided": "Unauthorized: Token not provided",
+    "invalid-token": "Unauthorized: Invalid token",
+    "invalid-token-format": "Unauthorized: Invalid token format",
+    "invalid-signature": "Unauthorized: Invalid signature",
+    "invalid-currency": "Invalid currency. Only USD, TRY, or EUR is allowed."
+
   }
 }
