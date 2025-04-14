@@ -4,21 +4,15 @@ import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 
 const uploadDir = path.join(__dirname, '../../public/uploads');
-const groupImagesDir = path.join(uploadDir, 'groupImages');
 const profileImagesDir = path.join(uploadDir, 'profileImages');
-const expenseImagesDir = path.join(uploadDir, 'expenseImages');
 
-[groupImagesDir, profileImagesDir, expenseImagesDir].forEach((dir) => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-});
+if (!fs.existsSync(profileImagesDir)) {
+  fs.mkdirSync(profileImagesDir, { recursive: true });
+}
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (file.fieldname === 'profileImage') cb(null, profileImagesDir);
-    else if (file.fieldname === 'groupImage') cb(null, groupImagesDir);
-    else if (file.fieldname === 'expenseImage') cb(null, expenseImagesDir);
   },
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);

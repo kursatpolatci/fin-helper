@@ -10,10 +10,8 @@ export const updateProfileService = async (
   userId: string,
   res: Response
 ): Promise<IUser> => {
-  const isAnyFieldEmpty = Object.values(input).every((value) => !value);
-  if (isAnyFieldEmpty) throw new Error(res.__('errors.no-fields-provided'));
   const relatedUser = await User.findById(userId);
-  if (!relatedUser) throw new Error(res.__('errors.user-not-found'));
+  if (!relatedUser) throw new Error(res.__('error.user-not-found'));
   const { username, email, oldPassword, newPassword, fullName, profileImage } = input;
   if (username) {
     const isUsernameExist = await User.findOne({ username });

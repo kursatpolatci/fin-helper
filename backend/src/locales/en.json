@@ -7,24 +7,26 @@
   },
   "expense": {
     "createExpense": "Expense created successfully.",
-    "updatedExpense": "Expense updated successfully"
+    "updatedExpense": "Expense updated successfully.",
+    "deletedExpense": "Expense deleted successfully."
   },
   "user": {
     "updateProfile": "Profile updated successfully"
   },
-  "errors": {
+  "error": {
     "email-format": "Email format is not valid.",
     "password-length": "Password length must be at least 6.",
     "invalid-value": "Any field cannot be empty or invalid",
     "existing-user": "This user is already exist.",
-    "user-not-found": "User not found",
     "wrong-password": "Password is not correct",
     "no-fields-provided": "No fields were provided for update.",
     "token-not-provided": "Unauthorized: Token not provided",
     "invalid-token": "Unauthorized: Invalid token",
     "invalid-token-format": "Unauthorized: Invalid token format",
     "invalid-signature": "Unauthorized: Invalid signature",
-    "invalid-currency": "Invalid currency. Only USD, TRY, or EUR is allowed."
-
+    "invalid-currency": "Invalid currency. Only USD, TRY, or EUR is allowed.",
+    "user-not-found": "User not found.",
+    "expense-not-found": "Expense not found.",
+    "delete-expense-error": "Expense cannot not delete."
   }
 }

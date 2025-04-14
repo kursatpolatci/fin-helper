@@ -3,7 +3,7 @@ export interface ISignupInput {
   username: string;
   fullName: string;
   password: string;
-  profileImage?: string;
+  profileImage: string | undefined;
 }
 
 export interface ILoginInput {
@@ -12,27 +12,22 @@ export interface ILoginInput {
 }
 
 export interface IUpdateProfileInput {
-  email: string;
-  username: string;
-  fullName: string;
-  oldPassword: string;
-  newPassword: string;
-  profileImage: string;
+  email: string | undefined;
+  username: string | undefined;
+  fullName: string | undefined;
+  oldPassword: string | undefined;
+  newPassword: string | undefined;
+  profileImage: string | undefined;
 }
 
 export interface ICreateExpenseInput {
   title: string;
+  category: string;
+  emoji: string;
   amount: number;
   date: Date;
   currency: string;
-  userId?: string;
-  expenseImage?: string;
+  userId: string;
 }
 
-export interface IUpdateExpenseInput {
-  title: string;
-  amount: number;
-  date: Date;
-  currency: string;
-  expenseImage?: string;
-}
+export type IUpdateExpenseInput = Partial<Omit<ICreateExpenseInput, 'userId'>> & { expenseId: string };

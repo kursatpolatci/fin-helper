@@ -1,69 +1,49 @@
-import mongoose from 'mongoose';
 import Expense, { IExpense } from '../models/expense.model';
 import { ICreateExpenseInput, IUpdateExpenseInput } from '../types/input.interface';
 import { Response } from 'express';
-import { CustomError } from '../errors/custom.error';
 import { validCurrency } from '../helpers/validation.helper';
-import { deleteImage } from '../utils/image.util';
+import { Types } from 'mongoose';
 
 export const createExpenseService = async (input: ICreateExpenseInput, res: Response): Promise<IExpense> => {
-  const { title, amount, date, userId, currency, expenseImage } = input;
+  const { title, category, emoji, amount, date, userId, currency } = input;
   validCurrency(currency, res);
-  if (!userId) throw new Error(res.__('errors.user-not-found'));
-  const dateValue = new Date(date);
-  const newExpense = new Expense({ title, amount, date: dateValue, currency, userId, expenseImage });
-  await newExpense.save();
-  return newExpense;
+  const newExpense = new Expense({ title, category, emoji, amount, date, currency, userId });
+  return newExpense.save();
 };
 
-export const getUserExpensesService = async (userId: string): Promise<any> => {
-  const expenses = await Expense.aggregate([
+export const getMonthlyExpensesService = async (userId: string, res: Response): Promise<IExpense[]> => {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const monthlyExpenses = await Expense.aggregate([
     {
-      $match: { userId: new mongoose.Types.ObjectId(userId) },
-    },
-    {
-      $group: {
-        _id: '$date',
-        expensesByDate: { $push: '$$ROOT' },
-      },
-    },
-    {
-      $sort: { _id: -1 },
-    },
-    {
-      $project: {
-        date: { $dateToString: { format: '%Y-%m-%d', date: '$_id' } },
-        expensesByDate: 1,
-        _id: 0,
+      $match: {
+        userId: new Types.ObjectId(userId),
+        date: {
+          $gte: new Date(currentYear, currentMonth, 1),
+          $lt: new Date(currentYear, currentMonth + 1, 1),
+        },
       },
     },
   ]);
-  return expenses;
+  return monthlyExpenses;
 };
 
-export const updateExpenseService = async (
-  input: IUpdateExpenseInput,
-  expenseId: string,
-  userId: string,
-  res: Response
-): Promise<IExpense> => {
-  const isAnyFieldEmpty = Object.entries(input).every((value) => !value);
-  if (isAnyFieldEmpty) throw new CustomError('No fields provided', 400);
+export const updateExpenseService = async (input: IUpdateExpenseInput, res: Response): Promise<IExpense> => {
+  const { title, category, emoji, amount, currency, date, expenseId } = input;
   const relatedExpense = await Expense.findById(expenseId);
-  if (!relatedExpense) throw new CustomError('Expense not found', 404);
-  if (relatedExpense.userId.toString() !== userId) throw new CustomError('You do not own this expense', 400);
-  const { title, amount, currency, date, expenseImage } = input;
+  if (!relatedExpense) throw new Error(res.__('error.expense-not-found'));
   if (title) relatedExpense.title = title;
+  if (category) relatedExpense.category = category;
+  if (emoji) relatedExpense.emoji = emoji;
   if (amount) relatedExpense.amount = amount;
-  if (currency) {
-    validCurrency(currency, res);
-    relatedExpense.currency = currency;
-  }
+  if (currency) relatedExpense.currency = currency;
   if (date) relatedExpense.date = date;
-  if (expenseImage) {
-    deleteImage(relatedExpense.expenseImage);
-    relatedExpense.expenseImage = expenseImage;
-  }
-  await relatedExpense.save();
-  return relatedExpense;
+  return relatedExpense.save();
+};
+
+export const deleteExpenseService = async (expenseId: string, res: Response): Promise<IExpense> => {
+  const deletedExpense = await Expense.findByIdAndDelete(expenseId);
+  if (!deletedExpense) throw new Error(res.__('error.delete-expense-error'));
+  return deletedExpense;
 };

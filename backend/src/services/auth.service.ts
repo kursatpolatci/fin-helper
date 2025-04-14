@@ -9,7 +9,7 @@ import { passwordControl } from '../helpers/validation.helper';
 export const signupService = async (input: ISignupInput, res: Response): Promise<IUser> => {
   const { username, fullName, email, profileImage, password } = input;
   const existingUser = await User.findOne({ $or: [{ email }, { username }] });
-  if (existingUser) throw new CustomError(res.__('errors.existing-user'), 404);
+  if (existingUser) throw new CustomError(res.__('error.existing-user'), 404);
   passwordControl(password, res);
   const hashedPassword = await hashPassword(password);
   const newUser = new User({ ...input, password: hashedPassword });
@@ -22,9 +22,9 @@ export const signupService = async (input: ISignupInput, res: Response): Promise
 export const loginService = async (input: ILoginInput, res: Response): Promise<IUser> => {
   const { email, password } = input;
   const relatedUser = await User.findOne({ email });
-  if (!relatedUser) throw new CustomError(res.__('errors.user-not-found'), 404);
+  if (!relatedUser) throw new CustomError(res.__('error.user-not-found'), 404);
   const isPasswordValid = await comparePassword(password, relatedUser.password);
-  if (!isPasswordValid) throw new CustomError(res.__('errors.wrong-password'), 400);
+  if (!isPasswordValid) throw new CustomError(res.__('error.wrong-password'), 400);
   const token = generateToken(relatedUser.id);
   setTokenCookie(token, res);
   return relatedUser;
@@ -36,6 +36,6 @@ export const logoutService = (res: Response): void => {
 
 export const checkAuthService = async (userId: string, res: Response): Promise<IUser> => {
   const relatedUser = await User.findById(userId);
-  if (!relatedUser) throw new CustomError(res.__('errors.user-not-found'), 404);
+  if (!relatedUser) throw new CustomError(res.__('error.user-not-found'), 404);
   return relatedUser;
 };

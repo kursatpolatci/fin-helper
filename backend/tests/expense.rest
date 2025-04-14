@@ -3,53 +3,35 @@
 ### CREATE EXPENSE
 
 POST {{base_url}}/create
-Content-Type: multipart/form-data; boundary=boundary123
+Content-Type: application/json
 Accept-Language: tr
 
---boundary123
-Content-Disposition: form-data; name="title"
+{
+    "title": "Kahve",
+    "category": "Yemek",
+    "emoji": "☕️",
+    "amount": "170",
+    "currency": "TRY",
+    "date": "2025-04-13"
+}
 
-Çanta
---boundary123
-Content-Disposition: form-data; name="amount"
+### GET MONTHLY EXPENSES
 
-1899
---boundary123
-Content-Disposition: form-data; name="currency"
-
-TRY
---boundary123
-Content-Disposition: form-data; name="date"
-
-2025-04-11
---boundary123
-Content-Disposition: form-data; name="expenseImage"; filename="expense.png"
-Content-Type: image/jpeg
-
-< C:\Users\polat\OneDrive\Desktop\sa.jpeg
---boundary123--
-
-### GET ALL EXPENSES
-
-GET {{base_url}}/all
+GET {{base_url}}/get-monthly-expenses
+Accept-Language: en
 
 ### UPDATE EXPENSE
 
-PUT {{base_url}}/update/67fc625969866d71693c1db3
-Content-Type: multipart/form-data; boundary=boundary123
+PUT {{base_url}}/update/67fd09bc49ee836fba7c698d
+Content-Type: application/json
 Accept-Language: tr
 
---boundary123
-Content-Disposition: form-data; name="title"
+{
+    "currency": "USD",
+    "emoji": "📦",
+    "amount": "32"
+}
 
-didosbag
---boundary123
-Content-Disposition: form-data; name="currency"
+### DELETE EXPENSE
 
-TRY
---boundary123
-Content-Disposition: form-data; name="expenseImage"; filename="expense.png"
-Content-Type: image/jpeg
-
-< C:\Users\polat\OneDrive\Desktop\sa.jpeg
---boundary123--
+DELETE {{base_url}}/delete/67fd28a146c2201c3dcea576

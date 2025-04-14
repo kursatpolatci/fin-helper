@@ -1,12 +1,12 @@
 import express from 'express';
-import { createExpense, getUserExpenses, updateExpense } from '../controllers/expense.controller';
+import { createExpense, deleteExpense, getMonthlyExpenses, updateExpense } from '../controllers/expense.controller';
 import { authenticate } from '../middlewares/authenticate.middleware';
-import { upload } from '../middlewares/multer.middleware';
 
 const router = express.Router();
 
-router.post('/create', authenticate, upload.single('expenseImage'), createExpense);
-router.get('/all', authenticate, getUserExpenses);
-router.put('/update/:id', authenticate, upload.single('expenseImage'), updateExpense);
+router.post('/create', authenticate, createExpense);
+router.get('/get-monthly-expenses', authenticate, getMonthlyExpenses);
+router.put('/update/:id', authenticate, updateExpense);
+router.delete('/delete/:id', authenticate, deleteExpense);
 
 export const expenseRoutes = router;
