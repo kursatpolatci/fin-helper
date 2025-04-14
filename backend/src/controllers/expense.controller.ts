@@ -13,7 +13,7 @@ export const createExpense = async (req: AuthenticatedRequest, res: Response): P
     title,
     amount: parseFloat(amount),
     currency,
-    date: new Date(date),
+    date: date ? new Date(date) : date,
     userId,
     expenseImage: file?.path,
   };
@@ -45,12 +45,12 @@ export const updateExpense = async (req: AuthenticatedRequest, res: Response): P
     title,
     amount: parseFloat(amount),
     currency,
-    date: new Date(date),
+    date: date ? new Date(date) : date,
     expenseImage: file?.path,
   };
   try {
-    const updatedExpense = await updateExpenseService(expenseData, expenseId, userId!);
-    handleResponse(res, 200);
+    const updatedExpense = await updateExpenseService(expenseData, expenseId, userId!, res);
+    handleResponse(res, 200, 'expense.updatedExpense', undefined, updatedExpense, 'expense');
   } catch (error: unknown) {
     deleteImage(file?.path);
     handleErrorResponse(res, error);

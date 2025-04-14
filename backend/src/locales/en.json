@@ -6,7 +6,8 @@
     "checkAuth": "{{name}} authenticated."
   },
   "expense": {
-    "createExpense": "Expense created successfully."
+    "createExpense": "Expense created successfully.",
+    "updatedExpense": "Expense updated successfully"
   },
   "user": {
     "updateProfile": "Profile updated successfully"

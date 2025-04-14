@@ -6,7 +6,8 @@
     "checkAuth": "{{name}} başarıyla doğrulandı."
   },
   "expense": {
-    "createExpense": "Harcama başarıyla oluşturuldu."
+    "createExpense": "Harcama başarıyla oluşturuldu.",
+    "updatedExpense": "Harcama başarıyla güncellendi."
   },
   "user": {
     "updateProfile": "Profil başarıyla güncellendi"

@@ -44,7 +44,12 @@ Content-Disposition: form-data; name="title"
 
 didosbag
 --boundary123
-Content-Disposition: form-data; name="currecy",
+Content-Disposition: form-data; name="currency"
 
-EUR
+TRY
+--boundary123
+Content-Disposition: form-data; name="expenseImage"; filename="expense.png"
+Content-Type: image/jpeg
+
+< C:\Users\polat\OneDrive\Desktop\sa.jpeg
 --boundary123--
